@@ -1,0 +1,39 @@
+"use client";
+import { useState } from "react";
+import { Dropzone } from "@/components/ui/Dropzone";
+import { ToolShell } from "@/components/ui/ToolShell";
+import { Progress } from "@/components/ui/Progress";
+import { imagesToPdf } from "@/lib/convert";
+import { downloadBytes } from "@/lib/download";
+
+export default function Page() {
+  const [progress, setProgress] = useState<number>(0);
+  const [busy, setBusy] = useState<boolean>(false);
+
+  async function handle(files: File[]) {
+    if (!files?.length) return;
+    setBusy(true);
+    setProgress(10);
+    try {
+      const bytes = await imagesToPdf(files);
+      setProgress(90);
+      downloadBytes(bytes, "images.pdf");
+      setProgress(100);
+    } finally {
+      setBusy(false);
+      setTimeout(() => setProgress(0), 600);
+    }
+  }
+
+  return (
+    <ToolShell title="Images → PDF" subtitle="Convert JPG/PNG into a single PDF.">
+      <Dropzone
+        accept={{ "image/*": [".png", ".jpg", ".jpeg", ".webp"] }}
+        multiple
+        onFiles={handle}
+        title="Drop images"
+      />
+      {busy ? <Progress value={progress} /> : null}
+    </ToolShell>
+  );
+}

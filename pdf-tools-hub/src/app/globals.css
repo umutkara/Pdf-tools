@@ -1,0 +1,135 @@
+@import "tailwindcss";
+
+/* Theme tokens */
+:root {
+  --background: #0b0f1a;
+  --foreground: #e7e9ee;
+  --muted: #c6c8ce;
+  --glass: rgba(255, 255, 255, 0.06);
+  --glass-border: rgba(255, 255, 255, 0.12);
+  --neon: 196 113 237; /* rgb */
+  --neon2: 0 168 255; /* rgb */
+  --accent: #7c3aed;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --background: #f7f8fb;
+    --foreground: #0d0f14;
+    --glass: rgba(255, 255, 255, 0.7);
+    --glass-border: rgba(0, 0, 0, 0.08);
+  }
+}
+
+/* Base */
+html, body {
+  height: 100%;
+}
+
+body {
+  background: radial-gradient(1200px 600px at 20% 10%, rgba(var(--neon), 0.08), transparent 60%),
+              radial-gradient(1200px 600px at 90% 80%, rgba(var(--neon2), 0.08), transparent 60%),
+              linear-gradient(180deg, color-mix(in oklab, var(--background), black 5%), var(--background));
+  color: var(--foreground);
+}
+
+/* Animated subtle gradient fog */
+.bg-animated::before,
+.bg-animated::after {
+  content: "";
+  position: fixed;
+  inset: -20%;
+  pointer-events: none;
+  background: radial-gradient(60% 40% at 30% 20%, rgba(var(--neon), 0.12), transparent),
+              radial-gradient(50% 30% at 70% 80%, rgba(var(--neon2), 0.12), transparent);
+  filter: blur(60px) saturate(120%);
+  animation: float 30s ease-in-out infinite alternate;
+  z-index: -1;
+}
+
+.bg-animated::after {
+  animation-duration: 45s;
+  animation-delay: -10s;
+}
+
+@keyframes float {
+  0% { transform: translate3d(-2%, -2%, 0) scale(1); }
+  100% { transform: translate3d(2%, 2%, 0) scale(1.05); }
+}
+
+/* Glass + neon utilities */
+.glass-card {
+  background: var(--glass);
+  backdrop-filter: saturate(140%) blur(14px);
+  -webkit-backdrop-filter: saturate(140%) blur(14px);
+  border: 1px solid var(--glass-border);
+  border-radius: 16px;
+  box-shadow: 0 1px 0 rgba(255,255,255,0.06) inset,
+              0 8px 30px rgba(0, 0, 0, 0.25);
+}
+
+.neon-hover {
+  transition: box-shadow 300ms ease, transform 300ms ease, border-color 300ms ease;
+}
+
+.neon-hover:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 0 1px color-mix(in oklab, rgb(var(--neon)) 60%, rgb(var(--neon2)) 40%),
+              0 0 24px rgba(var(--neon2), 0.45),
+              0 0 48px rgba(var(--neon), 0.35);
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, rgba(var(--neon2), 0.9), rgba(var(--neon), 0.9));
+  color: white;
+  border-radius: 9999px;
+  padding: 10px 16px;
+  font-weight: 600;
+  box-shadow: 0 10px 30px rgba(var(--neon2), 0.35);
+  transition: transform 200ms ease, box-shadow 200ms ease;
+}
+
+.btn-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 14px 40px rgba(var(--neon2), 0.45);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--foreground);
+  border: 1px solid var(--glass-border);
+  border-radius: 9999px;
+  padding: 10px 16px;
+  font-weight: 600;
+  transition: background 200ms ease, border-color 200ms ease;
+}
+
+.btn-ghost:hover {
+  background: rgba(255,255,255,0.06);
+  border-color: rgba(255,255,255,0.2);
+}
+
+/* Page transition helpers */
+.fade-enter {
+  opacity: 0;
+  transform: translateY(4px);
+}
+.fade-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 300ms ease, transform 300ms ease;
+}
+.fade-exit {
+  opacity: 1;
+}
+.fade-exit-active {
+  opacity: 0;
+  transition: opacity 250ms ease;
+}
