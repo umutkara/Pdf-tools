@@ -1,19 +1,7 @@
 "use client";
-import dynamic from "next/dynamic";
 import Link from "next/link";
 
-const tools = [
-  { slug: "pdf-to-word", title: "PDF → Word", subtitle: "Convert PDF to DOCX" },
-  { slug: "word-to-pdf", title: "Word → PDF", subtitle: "Convert DOCX to PDF" },
-  { slug: "merge-pdf", title: "Merge PDFs", subtitle: "Combine multiple PDF files" },
-  { slug: "compress-pdf", title: "Compress PDF", subtitle: "Shrink file size" },
-  { slug: "split-pdf", title: "Split PDF", subtitle: "Pages or ranges" },
-  { slug: "protect-pdf", title: "Add Password", subtitle: "Secure your PDF" },
-  { slug: "unprotect-pdf", title: "Remove Password", subtitle: "Unlock your PDF" },
-  { slug: "image-to-pdf", title: "Images → PDF", subtitle: "JPG/PNG to PDF" },
-];
-
-const ToolsGrid = dynamic(() => Promise.resolve(function ToolsGrid() {
+function ToolsGrid() {
   const tools = [
     { slug: "pdf-to-word", title: "PDF → Word", subtitle: "Convert PDF to DOCX" },
     { slug: "word-to-pdf", title: "Word → PDF", subtitle: "Convert DOCX to PDF" },
@@ -41,7 +29,7 @@ const ToolsGrid = dynamic(() => Promise.resolve(function ToolsGrid() {
       ))}
     </section>
   );
-}), { ssr: false });
+}
 
 export default function Home() {
   return (

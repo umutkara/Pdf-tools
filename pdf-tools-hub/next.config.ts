@@ -2,15 +2,7 @@ import type { NextConfig } from "next";
 import withPWA from "next-pwa";
 
 const config: NextConfig = {
-  experimental: {
-    optimizePackageImports: [
-      "react",
-      "react-dom",
-      "pdf-lib",
-      "react-dropzone",
-      "framer-motion",
-    ],
-  },
+  // Remove experimental optimizePackageImports to avoid webpack-runtime errors in prod build
 };
 
 export default withPWA({

@@ -16,3 +16,17 @@
  ✓ Compiled / in 14.6s (660 modules)
  HEAD / 200 in 15625ms
  HEAD / 200 in 520ms
+ ✓ Compiled in 1793ms (251 modules)
+ ✓ Compiled in 456ms (251 modules)
+ ✓ Compiled in 1104ms (243 modules)
+ ✓ Compiled in 540ms (243 modules)
+ ✓ Compiled in 331ms (243 modules)
+ ⚠ Found a change in next.config.ts. Restarting the server to apply the changes...
+   ▲ Next.js 15.5.6
+   - Local:        http://localhost:3001
+   - Network:      http://0.0.0.0:3001
+
+ ✓ Starting...
+> [PWA] PWA support is disabled
+> [PWA] PWA support is disabled
+ ✓ Ready in 7.4s
