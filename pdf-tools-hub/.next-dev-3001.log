@@ -1,0 +1,17 @@
+
+> pdf-tools-hub@0.1.0 dev
+> next dev -H 0.0.0.0 -p 3001
+
+   ▲ Next.js 15.5.6
+   - Local:        http://localhost:3001
+   - Network:      http://0.0.0.0:3001
+   - Experiments (use with caution):
+     · optimizePackageImports
+
+ ✓ Starting...
+> [PWA] PWA support is disabled
+> [PWA] PWA support is disabled
+ ✓ Ready in 5s
+ ○ Compiling / ...
+ ✓ Compiled / in 14.6s (660 modules)
+ HEAD / 200 in 15625ms
