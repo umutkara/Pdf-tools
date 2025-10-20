@@ -42,9 +42,12 @@ export default function Home() {
         <p className="text-white/70 text-lg sm:text-xl max-w-2xl mx-auto">
           Your All-in-One Smart PDF Toolkit
         </p>
-        <div className="flex items-center justify-center gap-3 pt-2">
-          <Link href="#tools" className="btn-primary">Start Now</Link>
-          <a href="#tools" className="btn-ghost">Explore Tools</a>
+        <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
+          <Link href="/merge-pdf" className="btn-primary">Merge PDFs</Link>
+          <Link href="/split-pdf" className="btn-ghost">Split PDFs</Link>
+          <Link href="/compress-pdf" className="btn-ghost">Compress PDFs</Link>
+          <Link href="/pdf-to-word" className="btn-ghost">Convert to Word</Link>
+          <Link href="/convert-to-jpg" className="btn-ghost">Convert to JPG</Link>
         </div>
       </section>
 
