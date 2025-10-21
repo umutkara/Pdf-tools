@@ -1,6 +1,9 @@
 "use client";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
+import { UploadCloud, Wand2, Scissors, Files, FileText, Images, FileCheck2 } from "lucide-react";
+import { Dropzone } from "@/components/ui/Dropzone";
+import { useToast } from "@/components/ui/Toast";
 import { Progress } from "@/components/ui/Progress";
 
 function ToolsGrid() {
@@ -47,8 +50,10 @@ export default function Home() {
     return `${value.toFixed(value >= 100 ? 0 : value >= 10 ? 1 : 2)} ${units[i]}`;
   }
 
-  function onFileChange(e: React.ChangeEvent<HTMLInputElement>): void {
-    const f = e.target.files?.[0];
+  const { show } = useToast();
+
+  function onFiles(files: File[]): void {
+    const f = files?.[0];
     if (!f) {
       setSelectedFile(null);
       setStatus("idle");
@@ -59,11 +64,13 @@ export default function Home() {
       setSelectedFile(null);
       setStatus("error");
       setProgress(0);
+      show("Please select a valid PDF file", "error");
       return;
     }
     setSelectedFile(f);
     setStatus("selected");
     setProgress(0);
+    show("PDF file selected", "success");
   }
 
   function startFakeProcess(): void {
@@ -101,11 +108,11 @@ export default function Home() {
           A clean, fast, and privacy‑friendly PDF toolbox. Upload a PDF to get started.
         </p>
         <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
-          <Link href="/merge-pdf" className="btn-primary">Merge PDFs</Link>
-          <Link href="/split-pdf" className="btn-ghost">Split PDFs</Link>
-          <Link href="/compress-pdf" className="btn-ghost">Compress PDFs</Link>
-          <Link href="/pdf-to-word" className="btn-ghost">Convert to Word</Link>
-          <Link href="/convert-to-jpg" className="btn-ghost">Convert to JPG</Link>
+          <Link href="/merge-pdf" className="btn-primary inline-flex items-center gap-2"><Files className="w-4 h-4"/> Merge PDFs</Link>
+          <Link href="/split-pdf" className="btn-ghost inline-flex items-center gap-2"><Scissors className="w-4 h-4"/> Split PDFs</Link>
+          <Link href="/compress-pdf" className="btn-ghost inline-flex items-center gap-2"><Wand2 className="w-4 h-4"/> Compress PDFs</Link>
+          <Link href="/pdf-to-word" className="btn-ghost inline-flex items-center gap-2"><FileText className="w-4 h-4"/> Convert to Word</Link>
+          <Link href="/convert-to-jpg" className="btn-ghost inline-flex items-center gap-2"><Images className="w-4 h-4"/> Convert to JPG</Link>
         </div>
       </section>
 
@@ -117,16 +124,13 @@ export default function Home() {
             <p className="text-white/70 max-w-prose">Select a PDF file to preview its details and simulate processing with a smooth progress indicator.</p>
 
             <div className="w-full flex flex-col items-center gap-4">
-              <label htmlFor="pdf-upload" className="btn-primary cursor-pointer inline-flex items-center gap-2">
-                <input
-                  id="pdf-upload"
-                  type="file"
-                  accept="application/pdf"
-                  onChange={onFileChange}
-                  className="hidden"
-                />
-                Choose PDF
-              </label>
+              <Dropzone
+                accept={{ "application/pdf": [".pdf"] }}
+                multiple={false}
+                title="Drag & Drop your PDF"
+                subtitle="or click to browse"
+                onFiles={onFiles}
+              />
 
               {status === "error" ? (
                 <p className="text-red-300 text-sm">Please select a valid PDF file.</p>
@@ -152,10 +156,10 @@ export default function Home() {
                     <div className="mt-4 flex gap-3">
                       <button
                         onClick={startFakeProcess}
-                        className="btn-primary"
+                        className="btn-primary inline-flex items-center gap-2"
                         disabled={!selectedFile}
                       >
-                        Process PDF
+                        <FileCheck2 className="w-4 h-4"/> Process PDF
                       </button>
                       <button
                         onClick={() => { setSelectedFile(null); setStatus("idle"); setProgress(0); }}
